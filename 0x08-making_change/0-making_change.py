@@ -20,7 +20,7 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
-    if len(coins) is 0:
+    if len(coins) == 0:
         return -1
     coins = sorted(coins)
     dynamic = [float('inf')] * (total + 1)
