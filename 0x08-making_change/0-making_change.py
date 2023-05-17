@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Defines function that determines the fewest number of coins to make change
-"""
+""" Making change """
 
 
 def makeChange(coins, total):
@@ -18,19 +16,20 @@ def makeChange(coins, total):
         the fewest number of coins to make the change
         or -1 if the total change cannot be made with the given coins
     """
+
     if total <= 0:
         return 0
-    if len(coins) == 0:
-        return -1
-    coins = sorted(coins)
-    dynamic = [float('inf')] * (total + 1)
-    dynamic[0] = 0
-    for i in range(total + 1):
-        for coin in coins:
-            if coin > i:
-                break
-            if dynamic[i - coin] != -1:
-                dynamic[i] = min(dynamic[i - coin] + 1, dynamic[i])
-    if dynamic[total] == float('inf'):
-        return -1
-    return dynamic[total]
+    else:
+        from math import trunc
+
+        coins = sorted(coins, reverse=True)
+        coin_dict = {}
+        while total is not None:
+            for c in coins:
+                if total % c == 0:
+                    coin_dict[c] = total / c
+                    return(int(sum(coin_dict.values())))
+                else:
+                    coin_dict[c] = trunc(total / float(c))
+                    total -= (c * coin_dict[c])
+            return -1
